@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>💖My World</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+    body {
+        margin: 0;
+        height: 100vh;
+        background: linear-gradient(135deg, #ff758f, #ffb3c1);
+        font-family: 'Segoe UI', sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+    }
+
+    .lock {
+        position: fixed;
+        inset: 0;
+        background: linear-gradient(135deg, #ff758f, #ffb3c1);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 999;
+    }
+
+    .lock-box {
+        background: white;
+        padding: 30px;
+        border-radius: 25px;
+        text-align: center;
+        width: 90%;
+        max-width: 350px;
+        box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+        animation: zoomIn 1s ease;
+    }
+
+    .lock-box input {
+        padding: 12px;
+        width: 100%;
+        border-radius: 20px;
+        border: 1px solid #ccc;
+        margin: 15px 0;
+        font-size: 1rem;
+        text-align: center;
+    }
+
+    .lock-box button {
+        padding: 12px 30px;
+        border: none;
+        border-radius: 25px;
+        background: #ff4d6d;
+        color: white;
+        font-size: 1rem;
+        cursor: pointer;
+    }
+
+    .error {
+        color: red;
+        display: none;
+    }
+
+    .container {
+        background: white;
+        width: 95%;
+        max-width: 450px;
+        padding: 25px;
+        border-radius: 25px;
+        text-align: center;
+        box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+        animation: zoomIn 1.2s ease;
+        position: relative;
+        z-index: 10;
+    }
+
+    h1 { color: #d6336c; }
+
+    .slideshow {
+        width: 100%;
+        height: 220px;
+        border-radius: 15px;
+        overflow: hidden;
+        margin-bottom: 15px;
+    }
+
+    .slideshow img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .typing {
+        min-height: 90px;
+        margin-bottom: 15px;
+    }
+
+    button {
+        padding: 12px 25px;
+        border: none;
+        border-radius: 30px;
+        font-size: 1rem;
+        cursor: pointer;
+        margin: 10px;
+    }
+
+    .yes {
+        background: #ff4d6d;
+        color: white;
+    }
+
+    .no {
+        background: #ccc;
+    }
+
+    .secret {
+        display: none;
+        margin-top: 15px;
+        padding: 15px;
+        background: #fff0f3;
+        border-radius: 15px;
+    }
+
+    .heart {
+        position: absolute;
+        bottom: -20px;
+        font-size: 20px;
+        color: white;
+        animation: float 6s linear infinite;
+    }
+
+    @keyframes float {
+        to { transform: translateY(-120vh); opacity: 0; }
+    }
+
+    @keyframes zoomIn {
+        from { opacity: 0; transform: scale(0.85); }
+        to { opacity: 1; transform: scale(1); }
+    }
+</style>
+</head>
+
+<body>
+
+<div class="lock" id="lock">
+    <div class="lock-box">
+        <h2>🔐 For Dede Only</h2>
+        <input type="password" id="password" placeholder="Our secret">
+        <button onclick="unlock()">Unlock ❤️</button>
+        <div class="error" id="error">Wrong password 💔</div>
+    </div>
+</div>
+
+<audio id="music" loop>
+    <source src="love.mp3" type="audio/mpeg">
+</audio>
+
+<div class="container">
+    <h1>DEDE💖</h1>
+
+    <div class="slideshow">
+        <img id="slide" src="image/me.jpeg">
+    </div>
+
+    <div class="typing" id="typing"></div>
+
+    <h2>Will you be my valentine?</h2>
+
+    <button class="yes" onclick="sayYes()">YES 💖</button>
+    <button class="no" onmouseover="runAway(this)">NO 🙈</button>
+
+    <div class="secret" id="secret">
+        <h3>My Promise 🌹</h3>
+        <p>I promise to love you on easy days and hard days,  
+            to choose you every single morning,  
+            and to walk forever by your side.</p>
+    </div>
+
+    <footer>Happy Valentine 💕</footer>
+</div>
+
+<script>
+function unlock() {
+    if (password.value === "forever") {
+        lock.style.display = "none";
+        music.play();
+        typeText();
+    } else {
+        error.style.display = "block";
+    }
+}
+
+const text = "Grace, loving you has been the easiest and most beautiful decision of my life. You are my safe place, my joy, my forever.";
+let i = 0;
+function typeText() {
+    if (i < text.length) {
+        typing.innerHTML += text.charAt(i++);
+        setTimeout(typeText, 50);
+    }
+}
+
+function sayYes() {
+    document.getElementById("secret").style.display = "block";
+    launchHearts();
+
+    // 📱 WHATSAPP MESSAGE TO YOU
+    const yourNumber = "233XXXXXXXXX"; // 🔁 PUT YOUR NUMBER HERE
+    const message = encodeURIComponent(
+        "YES ❤️ I said YES! Dede accepted your proposal 💍"
+    );
+    window.open(`https://wa.me/${yourNumber}?text=${message}`, "_blank");
+}
+
+function runAway(btn) {
+    btn.style.transform =
+        `translate(${Math.random()*150-75}px, ${Math.random()*150-75}px)`;
+}
+
+function launchHearts() {
+    for (let i = 0; i < 40; i++) {
+        const h = document.createElement("div");
+        h.className = "heart";
+        h.innerHTML = "❤️";
+        h.style.left = Math.random() * 100 + "vw";
+        h.style.animationDuration = (Math.random()*3+3)+"s";
+        document.body.appendChild(h);
+        setTimeout(()=>h.remove(),6000);
+    }
+}
+</script>
+
+</body>
+</html>
